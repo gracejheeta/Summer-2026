@@ -1,6 +1,7 @@
 // May 21
 
 //letters
+String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 String[] letters = new String[64];
 int start1, end1, start2, end2, start3, end3;
 String word1, word2, word3;
@@ -30,7 +31,7 @@ void setup() {
   Word3 = split(word3, ",");
   
   for (int i = 0; i < letters.length; i ++) {
-    letters[i] = "X"; 
+    letters[i] = alphabet[int(random(0, 26))]; 
   }
   
   int temp1 = 0;
