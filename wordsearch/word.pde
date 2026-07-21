@@ -3,18 +3,21 @@ class Word {
   String word;
   int start;
   int end;
-  String[] letters;
   
-  Word (String w, int s, int e) {
-     word = w;
-     start = s;
-     end = e;
-     letters = new String[w.length()];
-     
-     //fill letters array
-     for (int i = 0; i < word.length(); i ++) {
-       letters[i] = word.substring(i, i + 1);
-     }
+  //constructor
+  Word (String w, int s) {
+    word = w;
+    start = s;
+    end = word.length() + s - 1;
+  }
+  
+  //fill grid with word
+  void fillGrid() {
+    int temp = start;
+    for (int i = 0; i < word.length(); i ++) {
+      grid[temp] = word.substring(i, i + 1); 
+      temp ++;
+    }
   }
   
 }
