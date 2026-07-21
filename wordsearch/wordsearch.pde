@@ -6,13 +6,16 @@ String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
 //Array of words in list
 String[] allWords;
 
+//words to find
+ArrayList<String> toFind = new ArrayList<String>();
+
 //grid array
 String[] grid = new String[64];
 
-Word banana = new Word("banana", 10);
+Word banana = new Word("banana", 10, true);
 
 void setup() {
-  size(800, 800);
+  size(1000, 800);
   background(#D1FFFF);
   textAlign(CENTER, CENTER);
   fill(0);
@@ -27,7 +30,8 @@ void setup() {
   }
   
   //create random words
-  Word one = new Word(allWords[int(random(0, allWords.length))], 25);
+  
+  Word one = new Word(allWords[int(random(0, allWords.length))], 25, false);
   
   //fill grid with words
   banana.fillGrid();
@@ -36,11 +40,11 @@ void setup() {
 
 void draw() {
   //draw grid
-  for (int i = 0; i <= width; i += 100) {
+  for (int i = 0; i <= width - 200; i += 100) {
     line(i, 0, i, height); 
   }
   for(int j = 0; j <= height; j += 100) {
-    line(0, j, width, j); 
+    line(0, j, width - 200, j); 
   }
   
   //draw letters on grid
@@ -53,6 +57,14 @@ void draw() {
       x = 50;
       y += 100;
     }
+  }
+  
+  //display words to find
+  text("WORDS:", 900, 50);
+  int Y = 100;
+  for (String word : toFind) {
+    text(word, 900, Y); 
+    Y += 50;
   }
   
 }
