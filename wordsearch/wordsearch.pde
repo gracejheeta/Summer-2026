@@ -9,10 +9,10 @@ String[] allWords;
 //words to find
 ArrayList<String> toFind = new ArrayList<String>();
 
-//grid array
+//grid arrays
 String[] grid = new String[64];
+boolean[] empty = new boolean[grid.length];
 
-Word banana = new Word("banana", 10, true);
 
 void setup() {
   size(1000, 800);
@@ -29,13 +29,16 @@ void setup() {
     grid[i] = alphabet[int(random(0, 26))]; 
   }
   
-  //create random words
+  //initialize emtpy array
+  for (int i = 0; i < empty.length; i ++) {
+    empty[i] = true; 
+  }
   
-  Word one = new Word(allWords[int(random(0, allWords.length))], 25, false);
+  //fill grid with random words
+  while(toFind.size() < 5) {
+    randomWord();
+  }
   
-  //fill grid with words
-  banana.fillGrid();
-  one.fillGrid();
 }
 
 void draw() {
@@ -67,4 +70,37 @@ void draw() {
     Y += 50;
   }
   
+}
+
+void randomWord() {
+  int trueOrFalse = int(random(0, 2));
+  boolean randomBoolean = true;
+  if (trueOrFalse == 0) randomBoolean = true;
+  if (trueOrFalse == 1) randomBoolean = false;
+  
+  int begin = 0;
+  if (randomBoolean) begin = int(random(0, 60));
+  else begin = int(random(0, 32));
+  
+  //create word
+  Word one = new Word(allWords[int(random(0, allWords.length))], begin, randomBoolean); 
+  
+  //check if it fits in grid
+  if (checkFit(one)) one.fillGrid();
+}
+
+boolean checkFit(Word w) {
+  if (w.horizontal) {
+    for (int i = w.start; i <= w.end; i ++) {
+      if (empty[i]) i ++;
+      if (i == w.end + 1) return true;
+    }
+    return false;
+  } else {
+    for (int i = w.start; i <= w.end; i += 8) {
+      if (empty[i]) i += 8;
+      if (i == w.end + 8) return true;
+    }
+    return false;
+  }
 }
